@@ -8,54 +8,61 @@ import java.util.ArrayList;
 
 public class StudentDriver {
     static String fileName = "313data.txt";
-    static ArrayList<Course> courseList= new ArrayList<>();
-    static ArrayList<Student> studentList= new ArrayList<>();
+
+
     public static void main(String[] args) {
-        double d;
+
+        LoadData();
+    }
+
+    public static void LoadData() {
+        ArrayList<Student> studentList = new ArrayList<>();
 
 
         try {
-            BufferedReader file = new BufferedReader (
-                    new InputStreamReader( new FileInputStream(fileName)));
+            BufferedReader file = new BufferedReader(
+                    new InputStreamReader(new FileInputStream(fileName)));
 
-            try {
-                String input = file.readLine();
-                while (input != null ){
-                    String [] temp = input.split(",");
-                    Student tempStudent = new Student(temp[0],temp[1],temp[2]); //read first line into Student
-                    studentList.add(tempStudent);
+            String input = file.readLine();
+            while (input != null) {
+                System.out.println();
+                String[] temp = input.split(",");
+                Student tempStudent = new Student(temp[0], temp[1], temp[2]); //read first line into Student
+
+                ArrayList<Course> courseList = new ArrayList<>();
+
+                input = file.readLine();
+                while (!input.equals("-999")) {
+
+                    temp = input.split(",");
+                    Course tempCourse = new Course(temp[0], Double.parseDouble(temp[1]), temp[2]);
+                    courseList.add(tempCourse);
                     input = file.readLine();
 
-                    // read courses into Course
-                    while(input!="-999") {
-                        d = Double.parseDouble(temp[1]);
-                        Course tempCourse = new Course(temp[0], d, temp[2]);
-                        courseList.add(tempCourse);
-                        input = file.readLine();
-                    }
+                }
+                input = file.readLine();
+                temp = input.split(",");
+                tempStudent.setTotalCredits(Double.parseDouble(temp[0]));
+                tempStudent.setGpa(Double.parseDouble(temp[1]));
+                tempStudent.setCourses(courseList);
+                studentList.add(tempStudent);
+                input = file.readLine();
 
-                }
-                int counter = 0;
-                while (counter < courseList.size()){
-                    System.out.println(courseList.get(counter).toString());
-                    counter++;
-                }
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+
             }
+
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        int counter = 0;
-        while (counter < courseList.size()){
-            System.out.println(courseList.get(counter).toString());
-            counter++;
-        }
-
     }
 
+    public static void Display() {
+
+
+    }
 
 
 }

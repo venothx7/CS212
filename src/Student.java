@@ -10,9 +10,8 @@ public class Student implements Comparable<Student> {
     String major;
     String id;
     ArrayList<Course> courses;
-    int totalCredits;
-    int gpa;
-    String lastLine;
+    double totalCredits;
+    double gpa;
 
     public Student(String lastName, String firstName,String id) {
         this.lastName=lastName;
@@ -77,19 +76,19 @@ public class Student implements Comparable<Student> {
         this.courses = courses;
     }
 
-    public int getTotalCredits() {
+    public double getTotalCredits() {
         return totalCredits;
     }
 
-    public void setTotalCredits(int totalCredits) {
+    public void setTotalCredits(double totalCredits) {
         this.totalCredits = totalCredits;
     }
 
-    public int getGpa() {
+    public double getGpa() {
         return gpa;
     }
 
-    public void setGpa(int gpa) {
+    public void setGpa(double gpa) {
         this.gpa = gpa;
     }
 }
