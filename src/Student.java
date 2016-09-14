@@ -12,11 +12,18 @@ public class Student implements Comparable<Student> {
     ArrayList<Course> courses;
     double totalCredits;
     double gpa;
+    public Student(){
 
-    public Student(String lastName, String firstName,String id) {
-        this.lastName=lastName;
-        this.firstName=firstName;
-        this.id=id;
+    }
+    public Student(String lastName, String firstName, String id) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.id = id;
+    }
+
+    public Student(double totalCredits, double gpa) {
+        this.totalCredits = totalCredits;
+        this.gpa = gpa;
     }
 
     @Override
@@ -26,14 +33,19 @@ public class Student implements Comparable<Student> {
 
     @Override
     public String toString() {
-        return lastName +", "+ firstName +", "+ major
-                +", "+ id +", "+  courses
-                +", "+  totalCredits +", "+ gpa;
+        //return lastName + ", " + firstName + ", " + id + "\n" + courses.toString()  + totalCredits + ", " + gpa;
+        // go through the ArrayList courses and append it to StringBuilder
+        //Use StringBuilder because String is no immutable
+        StringBuilder sb = new StringBuilder();
+        for (Course c : courses) {
+            sb.append(c.toString());
+        }
+        return lastName + ", " + firstName + ", " + id + "\n" + sb.toString() + totalCredits + ", " + gpa;
     }
 
     @Override
     public boolean equals(Object o) {
-        return ((Student)o).id.equals(this.id);
+        return ((Student) o).id.equals(this.id);
     }
 
     public String getFirstName() {

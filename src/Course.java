@@ -13,8 +13,22 @@ public class Course {
 
     }
 
+    @Override
+    public String toString() {
+        return courseNumber + ", " + credits + ", " + grade+ "\n";
+
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Course c = (Course) obj; // type casting
+        return c.courseNumber.equals(this.courseNumber);
+
+    }
 
 
+
+    // The Setters and Getters
     public String getCourseNumber() {
         return courseNumber;
     }
@@ -35,17 +49,8 @@ public class Course {
     }
 
 
-    @Override
-    public String toString() {
-        return courseNumber + ", " + credits + ", " + grade+ "\n";
-    }
 
 
-    @Override
-    public boolean equals(Object obj) {
-        Course c = (Course) obj; // type casting
-        return c.courseNumber.equals(this.courseNumber);
 
-    }
 
 }
