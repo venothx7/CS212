@@ -37,7 +37,7 @@ public class Course {
 
     @Override
     public String toString() {
-        return courseNumber + ", " + credits + ", " + grade;
+        return courseNumber + ", " + credits + ", " + grade+ "\n";
     }
 
 
@@ -45,6 +45,7 @@ public class Course {
     public boolean equals(Object obj) {
         Course c = (Course) obj; // type casting
         return c.courseNumber.equals(this.courseNumber);
+
     }
 
 }
