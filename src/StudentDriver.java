@@ -97,14 +97,17 @@ public class StudentDriver {
 
      public static void AddStudent(){
          int result= JOptionPane.showConfirmDialog(null,
-                 "Would you like to add a Student","Students", JOptionPane.YES_NO_OPTION);
+                 "Would you like to add a Student","Add Students", JOptionPane.YES_NO_OPTION);
          //if they Click yes
          while(result == 0){
              String input = JOptionPane.showInputDialog(null,
-                     "Enter Students Name", "Adding Student", JOptionPane.INFORMATION_MESSAGE);
-             Student tempStudent = new Student();
-             tempStudent.setFirstName(input);
+                     "Enter Students Name(First Last, seperated with a space):",
+                     "Adding Student", JOptionPane.INFORMATION_MESSAGE);
+             String[] tempArray= input.split(" ");
+             Student tempStudent = new Student(tempArray[0],tempArray[1]);
              studentList.add(tempStudent);
+             result= JOptionPane.showConfirmDialog(null,
+                     "Would you like to add another Student","Add Students", JOptionPane.YES_NO_OPTION);
          }
      }
 
