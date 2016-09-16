@@ -5,42 +5,58 @@
 import java.util.ArrayList;
 
 public class Student implements Comparable<Student> {
-    String firstName;
-    String lastName;
-    String major;
-    String id;
-    ArrayList<Course> courses;
-    double totalCredits;
-    double gpa;
-    public Student(){
+    /**
+     *
+     */
+    private String firstName;
+    private String lastName;
+    private String major;
+    private String id;
+    private ArrayList<Course> courses;
+    private double totalCredits;
+    private double gpa;
 
-    }
-    public Student(String lastName, String firstName, String id) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.id = id;
-    }
-
-    public Student(double totalCredits, double gpa) {
-        this.totalCredits = totalCredits;
-        this.gpa = gpa;
-    }
 
     @Override
     public int compareTo(Student s) {
         return s.lastName.compareTo(this.lastName);
     }
 
+    /**
+     * @param lastName
+     * @param firstName
+     * @param id
+     */
+    public Student(String lastName, String firstName, String id) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.id = id;
+    }
+
+    public Student() {
+    }
+
+
+    public Student(String lastName, String firstName) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+    }
+
+
     @Override
     public String toString() {
         //return lastName + ", " + firstName + ", " + id + "\n" + courses.toString()  + totalCredits + ", " + gpa;
-        // go through the ArrayList courses and append it to StringBuilder
-        //Use StringBuilder because String is no immutable
-        StringBuilder sb = new StringBuilder();
-        for (Course c : courses) {
-            sb.append(c.toString());
+        if (id == null) {
+            return lastName + ", " + firstName + "\n";
+        } else {
+            // go through the ArrayList courses and append it to StringBuilder
+            //Use StringBuilder because String is no immutable
+            StringBuilder sb = new StringBuilder();
+            for (Course c : courses) {
+                sb.append(c.toString());
+            }
+            return lastName + ", " + firstName + ", " + id + "\n" + sb.toString() + totalCredits + ", " + gpa + "\n";
         }
-        return lastName + ", " + firstName + ", " + id + "\n" + sb.toString() + totalCredits + ", " + gpa;
     }
 
     @Override

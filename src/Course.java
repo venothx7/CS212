@@ -2,9 +2,10 @@
  * Created by Venoth on 9/8/2016.
  */
 public class Course {
-    String courseNumber;
-    double credits;
-    String grade;
+
+    private String courseNumber;
+    private double credits;
+    private String grade;
 
     public Course(String courseNumber, double credits, String grade) {
         this.courseNumber = courseNumber;
@@ -19,6 +20,11 @@ public class Course {
 
     }
 
+    /**
+     * all class and objests inherits from the objects class
+     * all the child classes that inherit that ojbect class can overide, meaning they can change the implementation,
+     * meaning "You Can Change What it Does" if you dont like what the default object class does
+     */
     @Override
     public boolean equals(Object obj) {
         Course c = (Course) obj; // type casting
