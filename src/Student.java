@@ -1,13 +1,11 @@
 /**
- * Created by Venoth on 9/8/2016.
+ * Created by Venoth Krishnan on 9/8/2016.
  */
 
 import java.util.ArrayList;
 
 public class Student implements Comparable<Student> {
-    /**
-     *
-     */
+
     private String firstName;
     private String lastName;
     private String major;
@@ -17,12 +15,9 @@ public class Student implements Comparable<Student> {
     private double gpa;
 
 
-    @Override
-    public int compareTo(Student s) {
-        return s.lastName.compareTo(this.lastName);
-    }
-
     /**
+     * This constructor is used when Loading Data from text files
+     * Sets tlastName, firstName, and id at once
      * @param lastName
      * @param firstName
      * @param id
@@ -33,24 +28,35 @@ public class Student implements Comparable<Student> {
         this.id = id;
     }
 
-    public Student() {
-    }
-
-
+    /**
+     * This constructor us used when Adding Students
+     * sets lastName and firstName at once
+     * @param lastName
+     * @param firstName
+     */
     public Student(String lastName, String firstName) {
         this.lastName = lastName;
         this.firstName = firstName;
     }
 
-
+    /**
+     * returns string in a certain format:
+     * lastName, firstName, id#
+     * course1
+     * course2
+     * etc
+     * totalCredits, GPA
+     * @return
+     */
     @Override
     public String toString() {
-        //return lastName + ", " + firstName + ", " + id + "\n" + courses.toString()  + totalCredits + ", " + gpa;
+
         if (id == null) {
             return lastName + ", " + firstName + "\n";
         } else {
             // go through the ArrayList courses and append it to StringBuilder
-            //Use StringBuilder because String is no immutable
+            //Used StringBuilder to save memory space
+            // used it this way to get rid of the brackets and extra commas when printed as arraylist
             StringBuilder sb = new StringBuilder();
             for (Course c : courses) {
                 sb.append(c.toString());
@@ -59,10 +65,32 @@ public class Student implements Comparable<Student> {
         }
     }
 
+    /**
+     * equality test based on id#
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         return ((Student) o).id.equals(this.id);
     }
+
+    /**
+     * Comparison based on lastName
+     * @param s
+     * @return
+     */
+    @Override
+    public int compareTo(Student s) {
+        return s.lastName.compareTo(this.lastName);
+    }
+
+    /**
+     * all the setters and getters
+     * most are not used because of the constructors at top,
+     * but they are here in case needed later in the semester
+     * @return
+     */
 
     public String getFirstName() {
         return firstName;

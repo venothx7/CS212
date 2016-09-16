@@ -1,3 +1,12 @@
+/**
+ * Created by Venoth Krishnan on 9/8/2016.
+ * This program is able to read in a text file of students with there
+ * FirstName, LastName, Id#, Courses taking, total credits taking, and GPA.
+ * It will then add each student to a Student List
+ * It will aslo
+ *
+ */
+
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,13 +25,10 @@ public class StudentDriver {
 
 
     public static void main(String[] args) {
-
-
         LoadData();
         AddStudent();
-        //Display(studentList);
+        Display(studentList);
         StoreData();
-
     }
 
 
@@ -32,37 +38,48 @@ public class StudentDriver {
     public static void LoadData() {
         // create a ArrayList called courseList of object Course
         studentList = new ArrayList<>();
-        ArrayList<Course> courseList = new ArrayList<>();
+
 
         try {
             BufferedReader file = new BufferedReader(
                     new InputStreamReader(new FileInputStream(FILE_NAME)));
 
-            String input = file.readLine();
+            String input = file.readLine();//reads first line
             while (input != null) {
+                //create courseList for current student
+                ArrayList<Course> courseList = new ArrayList<>();
+
                 String[] temp = input.split(",");
                 //temp[0] holds String Last Name
                 //temp[1] holds String First name
                 //temp[2] holds String id
+
+                //pass in the lastName, firstName, id to current student
                 Student tempStudent = new Student(temp[0], temp[1], temp[2]);
 
-                input = file.readLine();
+                input = file.readLine();//reads line after name, which is courses
 
-
+                //loops until
                 while (!input.equals("-999")) {
+
                     temp = input.split(",");
                     // temp[0] holds String courseNumber
                     // temp[1] holds double credits
                     // temp[2] holds String grade
+
                     Course tempCourse = new Course(temp[0], Double.parseDouble(temp[1]), temp[2]);
-                    courseList.add(tempCourse); // add to the list of courses
-                    input = file.readLine();
+                    courseList.add(tempCourse); // add the current course to courseList
+                    input = file.readLine();//reads the nxt line for the inner while loop
 
                 }
-                input = file.readLine();
+                input = file.readLine();//reads the line after -999,which is credits and gpa
 
                 temp = input.split(",");
                 // Set the totalCredits and gpa into tempStudent
+                //temp[0] holds the totalCredits as String
+                //temp[1] holds the gpa as String
+
+                //parsed the Strings to double for the Credits and Gpa
                 tempStudent.setTotalCredits(Double.parseDouble(temp[0]));
                 tempStudent.setGpa(Double.parseDouble(temp[1]));
 
@@ -70,7 +87,7 @@ public class StudentDriver {
                 tempStudent.setCourses(courseList);
                 // adds the current Student to studentList
                 studentList.add(tempStudent);
-                input = file.readLine();
+                input = file.readLine();//reads nxt line for outer while loop
 
             }
 
@@ -83,38 +100,51 @@ public class StudentDriver {
 
     }
 
-
+    /**
+     * prints studentList in the format given in the assignment
+     * @param studentList
+     */
     public static void Display(ArrayList studentList) {
-
+        //goes through the list and prints the values in the format given
         for (Object o : studentList) {
             System.out.print(o.toString());
         }
 
     }
 
-
+    /**
+     * adds a Student by using JOption Pane
+     */
     public static void AddStudent() {
         int result = JOptionPane.showConfirmDialog(null,
                 "Would you like to add a Student", "Add Students", JOptionPane.YES_NO_OPTION);
-        //if they Click yes
+        //loop keeps going until the user Presses no
         while (result == 0) {
             String input = JOptionPane.showInputDialog(null,
-                    "Enter Students Name(First Last, seperated with a space):",
-                    "Adding Student", JOptionPane.INFORMATION_MESSAGE);
+                    "Enter Student's Name(First Last SEPERATED with ONE space(Ex. Venoth Krishnan)):",
+                    "Adding Student to List", JOptionPane.INFORMATION_MESSAGE);
             String[] tempArray = input.split(" ");
-            Student tempStudent = new Student(tempArray[0], tempArray[1]);
-            studentList.add(tempStudent);
+            //tempArray[1] holds Last Name as String
+            //tempArray[0] holds First Name as String
+
+            //passes in the name to temp student
+            Student tempStudent = new Student(tempArray[1], tempArray[0]);
+            studentList.add(tempStudent);//adds it current tempStudent to studentList
             result = JOptionPane.showConfirmDialog(null,
                     "Would you like to add another Student", "Add Students", JOptionPane.YES_NO_OPTION);
         }
     }
 
+    /**
+     * Creates a new text file in the same directory as this java file
+     * if there exists a file already, it will replace it with the current List
+     */
     public static void StoreData() {
 
         BufferedWriter bw = null;
 
         try {
-            String strContent = "This example shows how to write string content to a files";
+
             File file = new File("tester.txt");
             // check if file exist, otherwise create the file before writing
             if (!file.exists()) {
