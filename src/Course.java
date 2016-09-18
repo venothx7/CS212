@@ -10,6 +10,7 @@ public class Course {
 
     /**
      * Constructor used when Loading data
+     *
      * @param courseNumber
      * @param credits
      * @param grade
@@ -21,14 +22,16 @@ public class Course {
 
     }
 
+
     /**
      * reutrns a String in a certain format:
      * course#, Credits, Grade
+     *
      * @return
      */
     @Override
     public String toString() {
-        return courseNumber + ", " + credits + ", " + grade+ "\n";
+        return courseNumber + ", " + credits + ", " + grade + "\n";
 
     }
 
@@ -39,39 +42,40 @@ public class Course {
      */
     @Override
     public boolean equals(Object obj) {
-        Course c = (Course) obj; // type casting
+        Course c = (Course) obj;
         return c.courseNumber.equals(this.courseNumber);
-
     }
 
 
     /**
      * all the setters and getters
      * none of them are used now, but they are here in case needed later
+     *
      * @return
      */
     public String getCourseNumber() {
         return courseNumber;
     }
+
     public double getCredits() {
         return credits;
     }
+
     public void setCredits(double credits) {
         this.credits = credits;
     }
+
     public String getGrade() {
         return grade;
     }
+
     public void setCourseNumber(String courseNumber) {
         this.courseNumber = courseNumber;
     }
+
     public void setGrade(String grade) {
         this.grade = grade;
     }
-
-
-
-
 
 
 }

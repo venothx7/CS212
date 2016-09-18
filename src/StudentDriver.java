@@ -20,23 +20,29 @@ import java.io.InputStreamReader;
 
 
 public class StudentDriver {
-    private static final String FILE_NAME = "313data.txt";
+    private static final String FILE_NAME = "WarmUpData.txt ";
     private static ArrayList<Student> studentList;
 
 
     public static void main(String[] args) {
         LoadData();
+        //Calculate();
         AddStudent();
         Display(studentList);
         StoreData();
     }
 
+    public static void Calculate() {
+        for (Student student : studentList) {
+            student.setGpa(student.gpaCalcualte());
+        }
+
+    }
 
     /**
      * Loads the data from 313data.txt and adds it to studentList
      */
     public static void LoadData() {
-        // create a ArrayList called courseList of object Course
         studentList = new ArrayList<>();
 
 
@@ -59,7 +65,7 @@ public class StudentDriver {
 
                 input = file.readLine();//reads line after name, which is courses
 
-                //loops until
+                //loops until input is -999
                 while (!input.equals("-999")) {
 
                     temp = input.split(",");
@@ -82,6 +88,8 @@ public class StudentDriver {
                 //parsed the Strings to double for the Credits and Gpa
                 tempStudent.setTotalCredits(Double.parseDouble(temp[0]));
                 tempStudent.setGpa(Double.parseDouble(temp[1]));
+                //tempStudent.setTotalCredits(0);
+                //tempStudent.setGpa(0);
 
                 // adds the current courseList to the current tempStudent
                 tempStudent.setCourses(courseList);
@@ -121,15 +129,14 @@ public class StudentDriver {
         //loop keeps going until the user Presses no
         while (result == 0) {
             String input = JOptionPane.showInputDialog(null,
-                    "Enter Student's Name(First Last SEPERATED with ONE space(Ex. Venoth Krishnan)):",
+                    "Enter Student's Name(First and Last Name must be Separated by ONE space)\n(Ex. Venoth Krishnan)):",
                     "Adding Student to List", JOptionPane.INFORMATION_MESSAGE);
             String[] tempArray = input.split(" ");
             //tempArray[1] holds Last Name as String
             //tempArray[0] holds First Name as String
 
-            //passes in the name to temp student
             Student tempStudent = new Student(tempArray[1], tempArray[0]);
-            studentList.add(tempStudent);//adds it current tempStudent to studentList
+            studentList.add(tempStudent);//adds current tempStudent to studentList
             result = JOptionPane.showConfirmDialog(null,
                     "Would you like to add another Student", "Add Students", JOptionPane.YES_NO_OPTION);
         }
@@ -137,7 +144,7 @@ public class StudentDriver {
 
     /**
      * Creates a new text file in the same directory as this java file
-     * if there exists a file already, it will replace it with the current List
+     * if there exists a file already, it will replace it!
      */
     public static void StoreData() {
 
@@ -145,19 +152,16 @@ public class StudentDriver {
 
         try {
 
-            File file = new File("tester.txt");
+            File file = new File("WarmUpDataOutput.txt");
             // check if file exist, otherwise create the file before writing
             if (!file.exists()) {
                 file.createNewFile();
             }
-
             FileWriter fw = new FileWriter(file);
             bw = new BufferedWriter(fw);
             for (Object o : studentList) {
                 bw.write(o.toString());
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
