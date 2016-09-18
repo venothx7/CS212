@@ -119,7 +119,7 @@ public class StudentDriver {
 
     /**
      * Adds a Student using JOption Pane, Only First and Last Name
-     * User must separate First and Last name with a Space
+     * User must separate First and Last name with a Space!
      */
     public static void AddStudent() {
 
