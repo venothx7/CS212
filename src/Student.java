@@ -10,14 +10,15 @@ public class Student implements Comparable<Student> {
     private String lastName;
     private String major;
     private String id;
-    private ArrayList<Course> courses;
-    private static double totalCredits;
+    private ArrayList<Course> coursesList;
+    private double totalCredits;
     private double gpa;
 
 
     /**
      * This constructor is used when Loading Data from text files
      * Sets lastName, firstName, and id at once
+     *
      * @param lastName
      * @param firstName
      * @param id
@@ -31,6 +32,7 @@ public class Student implements Comparable<Student> {
     /**
      * This constructor us used when Adding Students
      * sets lastName and firstName at once
+     *
      * @param lastName
      * @param firstName
      */
@@ -39,71 +41,62 @@ public class Student implements Comparable<Student> {
         this.firstName = firstName;
     }
 
-    double topSum = 0;
-    double totalCredit = 0;
+    /**
+     * Calculates the gpa and total credits for student
+     *
+     * @return
+     */
+    public void Calculate() {
+        gpa = 0;
+        totalCredits = 0;
+        if (coursesList != null) { //checks if the student has courses added
+            double topSum = 0;
+            for (Course c : coursesList) {
 
-    public double gpaCalcualte() {
-        for (Course c : courses) {
+                topSum += c.getCredits() * convertLetterGrade(c.getGrade());
+                totalCredits += c.getCredits(); // will add all the credits
+            }
 
-            topSum += c.getCredits() * convertLetterGrade(c.getGrade());
-            totalCredit += c.getCredits();
+            gpa = (double) Math.round(topSum / totalCredits * 1000) / 1000; //rounds the result to 3 places
         }
-        totalCredits = totalCredit;
-        return topSum / totalCredit;
     }
 
     public double convertLetterGrade(String s) {
-        double gradeDouble;
+
         switch (s) {
             case "A+":
-                gradeDouble = 4.0;
-                break;
             case "A":
-                gradeDouble = 4.0;
-                break;
+                return 4.0;
             case "A-":
-                gradeDouble = 3.7;
-                break;
+                return 3.7;
             case "B+":
-                gradeDouble = 3.3;
-                break;
+                return 3.3;
             case "B":
-                gradeDouble = 3.0;
-                break;
+                return 3.0;
             case "B-":
-                gradeDouble = 2.7;
-                break;
+                return 2.7;
             case "C+":
-                gradeDouble = 2.3;
-                break;
+                return 2.3;
             case "C":
-                gradeDouble = 2.0;
-                break;
+                return 2.0;
             case "C-":
-                gradeDouble = 1.7;
-                break;
+                return 1.7;
             case "D+":
-                gradeDouble = 1.3;
-                break;
+                return 1.3;
             case "D":
-                gradeDouble = 1.0;
-                break;
+                return 1.0;
             case "D-":
-                gradeDouble = 0.7;
-                break;
+                return 0.7;
             case "F":
-                gradeDouble = 0.0;
-                break;
+                return 0.0;
             default:
-                gradeDouble = 0;
-                break;
+                return 0;
         }
-        return gradeDouble;
 
     }
 
     /**
-     * returns string in a certain format:
+     * returns string in a format:
      * lastName, firstName, id#
      * course1
      * course2
@@ -114,12 +107,12 @@ public class Student implements Comparable<Student> {
     @Override
     public String toString() {
 
-        if (id == null) {
+        if (coursesList == null) {
             return lastName + ", " + firstName + "\n";
         } else {
-            // go through the ArrayList courses and append it to StringBuilder
+            // go through the ArrayList coursesList and append it to StringBuilder
             StringBuilder sb = new StringBuilder();
-            for (Course c : courses) {
+            for (Course c : coursesList) {
                 sb.append(c.toString());
             }
             return lastName + ", " + firstName + ", " + id + "\n" + sb.toString() + totalCredits + ", " + gpa + "\n";
@@ -138,6 +131,7 @@ public class Student implements Comparable<Student> {
 
     /**
      * Comparison based on lastName
+     *
      * @param s
      * @return
      */
@@ -153,42 +147,55 @@ public class Student implements Comparable<Student> {
     public String getFirstName() {
         return firstName;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
     public String getLastName() {
         return lastName;
     }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
     public String getMajor() {
         return major;
     }
+
     public void setMajor(String major) {
         this.major = major;
     }
+
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
-    public ArrayList<Course> getCourses() {
-        return courses;
+
+    public ArrayList<Course> getCoursesList() {
+        return coursesList;
     }
-    public void setCourses(ArrayList<Course> courses) {
-        this.courses = courses;
+
+    public void setCoursesList(ArrayList<Course> coursesList) {
+        this.coursesList = coursesList;
     }
+
     public double getTotalCredits() {
         return totalCredits;
     }
+
     public void setTotalCredits(double totalCredits) {
         this.totalCredits = totalCredits;
     }
+
     public double getGpa() {
         return gpa;
     }
+
     public void setGpa(double gpa) {
         this.gpa = gpa;
     }
