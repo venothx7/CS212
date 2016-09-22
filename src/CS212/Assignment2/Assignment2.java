@@ -1,7 +1,6 @@
 package CS212.Assignment2;
 
 import java.util.Scanner;
-
 /**
  * Assignment 2
  * Venoth Krishnan
