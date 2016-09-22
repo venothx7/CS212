@@ -72,8 +72,10 @@ public class StudentDriver {
 
                 }
                 input = file.readLine();//reads the line after -999
-
-                temp = input.split(",");
+                /**
+                 * this code can be commented in if Calcualte() method is not used
+                 */
+                //temp = input.split(",");
                 // Set the totalCredits and gpa into tempStudent
                 //temp[0] holds the totalCredits as String
                 //temp[1] holds the gpa as String
@@ -100,6 +102,9 @@ public class StudentDriver {
 
     }
 
+    /**
+     * Calculates the gpa and totalCredits for each student in studentList
+     */
     public static void Calculate() {
         //Calculate gpa and totalCredits for all students in studentList
         for (Student student : studentList) {
@@ -146,7 +151,7 @@ public class StudentDriver {
     }
 
     /**
-     * Creates a new text file called WarmUpDataOutput.txt in the same directory as this java file
+     * Creates a new text file called WarmUpDataOutput.txt
      * if there exists a file already, it will replace it!
      * the file will contain all the students information in studentList
      */
