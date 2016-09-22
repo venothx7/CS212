@@ -10,7 +10,6 @@ public class Course {
 
     /**
      * Constructor used when Loading data
-     *
      * @param courseNumber
      * @param credits
      * @param grade
@@ -19,14 +18,12 @@ public class Course {
         this.courseNumber = courseNumber;
         this.credits = credits;
         this.grade = grade;
-
     }
 
 
     /**
      * reutrns a String in a certain format:
      * course#, Credits, Grade
-     *
      * @return
      */
     @Override
@@ -36,9 +33,7 @@ public class Course {
     }
 
     /**
-     * all class and objests inherits from the objects class
-     * all the child classes that inherit that ojbect class can overide, meaning they can change the implementation,
-     * meaning "You Can Change What it Does" if you dont like what the default object class does
+     * returns true if the courseNumber is the same
      */
     @Override
     public boolean equals(Object obj) {
@@ -49,8 +44,6 @@ public class Course {
 
     /**
      * all the setters and getters
-     * none of them are used now, but they are here in case needed later
-     *
      * @return
      */
     public String getCourseNumber() {

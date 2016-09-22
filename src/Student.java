@@ -18,7 +18,6 @@ public class Student implements Comparable<Student> {
     /**
      * This constructor is used when Loading Data from text files
      * Sets lastName, firstName, and id at once
-     *
      * @param lastName
      * @param firstName
      * @param id
@@ -30,9 +29,8 @@ public class Student implements Comparable<Student> {
     }
 
     /**
-     * This constructor us used when Adding Students
+     * This constructor is used when Adding Students
      * sets lastName and firstName at once
-     *
      * @param lastName
      * @param firstName
      */
@@ -43,7 +41,6 @@ public class Student implements Comparable<Student> {
 
     /**
      * Calculates the gpa and total credits for student
-     *
      * @return
      */
     public void Calculate() {
@@ -131,7 +128,6 @@ public class Student implements Comparable<Student> {
 
     /**
      * Comparison based on lastName
-     *
      * @param s
      * @return
      */
@@ -141,7 +137,7 @@ public class Student implements Comparable<Student> {
     }
 
     /**
-     * all the setters and getters
+     * All the setters and getters
      * @return
      */
     public String getFirstName() {
