@@ -1,6 +1,6 @@
 /**
  * Created by Venoth Krishnan on 9/8/2016.
- *CS 313 Assignment 1
+ *CS 313 Assignment 1.1
  */
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class StudentDriver {
 
     /**
      * Loads the data from 313data.txt and adds it to studentList
-     * does not load the gpa and total credits, for it will be calculated by the Calculate() method
+     * does not load the gpa and total credits,it will be calculated by the Calculate() method
      */
     public static void LoadData() {
         studentList = new ArrayList<>();
@@ -72,13 +72,16 @@ public class StudentDriver {
 
                 }
                 input = file.readLine();//reads the line after -999
+                /**
+                 * this part can be commented in to read in the gpa and totalCredits directly from the text file
+                 * and not calculated by Calculate().
+                 */
+                //temp = input.split(",");
 
-                temp = input.split(",");
                 // Set the totalCredits and gpa into tempStudent
                 //temp[0] holds the totalCredits as String
                 //temp[1] holds the gpa as String
 
-                //parsed the Strings to double for the Credits and Gpa
                 //tempStudent.setTotalCredits(Double.parseDouble(temp[0]));
                 //tempStudent.setGpa(Double.parseDouble(temp[1]));
 
@@ -146,7 +149,7 @@ public class StudentDriver {
     }
 
     /**
-     * Creates a new text file called WarmUpDataOutput.txt in the same directory as this java file
+     * Creates a new text file called WarmUpDataOutput.txt i
      * if there exists a file already, it will replace it!
      * the file will contain all the students information in studentList
      */
