@@ -1,6 +1,6 @@
 /**
  * Created by Venoth Krishnan on 9/8/2016.
- *CS 313 Assignment 1
+ * CS 313 Assignment 1
  */
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 
 public class StudentDriver {
     private static final String FILE_NAME = "WarmUpData.txt "; //file name to read in
-    private static ArrayList<Student> studentList;
+    private static ArrayList<Student> studentList = new ArrayList<>();
 
 
     public static void main(String[] args) {
@@ -29,15 +29,11 @@ public class StudentDriver {
     }
 
 
-
     /**
-     * Loads the data from 313data.txt and adds it to studentList
+     * Loads the data from WarmUpData.txt and adds it to studentList
      * does not load the gpa and total credits, for it will be calculated by the Calculate() method
      */
     public static void LoadData() {
-        studentList = new ArrayList<>();
-
-
         try {
             BufferedReader file = new BufferedReader(
                     new InputStreamReader(new FileInputStream(FILE_NAME)));
@@ -65,7 +61,7 @@ public class StudentDriver {
                     // temp[1] holds String credits
                     // temp[2] holds String grade
 
-                    // String credits will be converted to Double by using the parse method
+                    // String credits will be converted to Double by using the parse
                     Course tempCourse = new Course(temp[0], Double.parseDouble(temp[1]), temp[2]);
                     courseList.add(tempCourse); // add the current course to courseList
                     input = file.readLine();
@@ -125,6 +121,7 @@ public class StudentDriver {
     /**
      * Adds a Student using JOption Pane, Only First and Last Name
      * User must separate First and Last name with a Space!
+     * Will check to make sure if the user entered the name in the correct format.
      */
     public static void AddStudent() {
 
@@ -137,15 +134,24 @@ public class StudentDriver {
                     "Enter Student's Name(First and Last Name must be Separated by ONE space)\n(Ex. Venoth Krishnan)):",
                     "Adding Student to List", JOptionPane.INFORMATION_MESSAGE);
             if (input != null) {// If user presses Cancel, will break out of loop
-                String[] tempArray = input.split(" ");
-                //tempArray[1] holds Last Name as a String
-                //tempArray[0] holds First Name as a String
+                if (!input.matches("([a-zA-Z]+)\\s([a-zA-Z]+)")) {//checks if user did not enter name in correct format
+                    JOptionPane.showMessageDialog(null,
+                            "Please Enter a Valid Name(ex. John Smith) \n Must contain only letters and a space!",
+                            "Input Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                } else {
+                    String[] tempArray = input.split("\\s+");
 
-                Student tempStudent = new Student(tempArray[1], tempArray[0]);
-                studentList.add(tempStudent);//adds current tempStudent to studentList
+                    //tempArray[1] holds Last Name as a String
+                    //tempArray[0] holds First Name as a String
 
-                result = JOptionPane.showConfirmDialog(null,
-                        "Would you like to add another Student", "Add Students", JOptionPane.YES_NO_OPTION);
+                    Student tempStudent = new Student(tempArray[1], tempArray[0]);
+                    studentList.add(tempStudent);//adds current tempStudent to studentList
+
+                    result = JOptionPane.showConfirmDialog(null,
+                            "Would you like to add another Student", "Add Students", JOptionPane.YES_NO_OPTION);
+                }
+
             } else break;
         }
     }

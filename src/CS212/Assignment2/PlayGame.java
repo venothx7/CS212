@@ -1,5 +1,7 @@
 package CS212.Assignment2;
 
+import java.lang.reflect.Array;
+
 /**
  * Created by Venoth on 9/20/2016.
  */
@@ -10,7 +12,7 @@ public class PlayGame {
 
     }
 
-    public void CreateBoard(){
+    public void printBoard(Array[] board) {
 
 
     }
