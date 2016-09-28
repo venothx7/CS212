@@ -16,12 +16,10 @@ public class PlayGame {
 
     }
     public Boolean checkWinner(){
-        Boolean result=false;
         int a=0, b=1,c=2, count=0;
         while(count!=3){//checks rows
             if(checkThree(board[a],board[b],board[c])){
-                result=true;
-                break;
+                return true;
             }
             a+=3;b+=3;c+=3;
             count++;
@@ -30,21 +28,19 @@ public class PlayGame {
         count=0;
         while(count!=3){//check columns
             if(checkThree(board[colum],board[colum+3],board[colum+6])){
-                result=true;
+                return true;
             }
             count++;
         }
 
         //check both diagonal
         if(checkThree(board[0],board[4],board[8])){
-            result=true;
+            return true;
         }
         if(checkThree(board[2],board[4],board[6])){
-            result=true;
+            return true;
         }
-
-
-        return result;
+        return false;
     }
 
     public Boolean checkThree(String a, String b, String c){
