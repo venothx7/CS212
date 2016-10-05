@@ -8,44 +8,73 @@ public class PlayGame {
         return counter;
     }
 
-
+    // Create board
     public PlayGame() {
         createBoard();
     }
+    //check if board has winner, tie, Full
     public void boardState(int player){
+        if(checkWinner()){
+            System.out.println(player +" has WON the game!!");
+            counter=9;
+        }
+
 
     }
+
+
     public Boolean checkWinner(){
+        /**
+         * checks rows the while loop will loop 3 times
+         * check indexes 0,1,2 in the 1st loop
+         * check indexes 3,4,5 in the 2nd loop
+         * check indexes 6,7,8 in the 3rd loop
+         */
         int a=0, b=1,c=2, count=0;
-        while(count!=3){//checks rows
+        while(count<=3){
             if(checkThree(board[a],board[b],board[c])){
-                return true;
-            }
+                return true;}
             a+=3;b+=3;c+=3;
             count++;
         }
+
+        /**
+         * check columns
+         * check indexes 0,3,6 in the 1st loop
+         * check indexes 1,4,7 in the 2nd loop
+         * check indexes 2,5,8 in the 3rd loop
+         */
         int colum=0;
         count=0;
-        while(count!=3){//check columns
+        while(count<=3){
             if(checkThree(board[colum],board[colum+3],board[colum+6])){
                 return true;
             }
+            colum++;
             count++;
         }
 
-        //check both diagonal
+        /**
+         * checks both diagonals
+         */
+        //checks left diagonal
         if(checkThree(board[0],board[4],board[8])){
             return true;
         }
+        //checks right diagonal
         if(checkThree(board[2],board[4],board[6])){
             return true;
         }
         return false;
     }
 
+    /**
+     * input 3 strings
+     * checks if 3 strings are equal
+     */
     public Boolean checkThree(String a, String b, String c){
         //returns true if winner found
-        return !a.equals(" ") & a.equals(b) & b.equals(c);
+        return !a.equals(" ") && a.equals(b) && b.equals(c);
     }
 
 
