@@ -1,7 +1,9 @@
 package CS212.Assignment2;
 
+import java.util.Arrays;
+
 public class PlayGame {
-    private String[] board = new String[9];
+    private String[][] board = new String[3][3];
     private int counter = 0;
 
     public int getCounter() {
@@ -18,51 +20,37 @@ public class PlayGame {
             System.out.println(player +" has WON the game!!");
             counter=9;
         }
+        if(counter==0){
+            System.out.println("Game is a Tie");
 
-
+        }
     }
 
 
     public Boolean checkWinner(){
-        /**
-         * checks rows the while loop will loop 3 times
-         * check indexes 0,1,2 in the 1st loop
-         * check indexes 3,4,5 in the 2nd loop
-         * check indexes 6,7,8 in the 3rd loop
-         */
-        int a=0, b=1,c=2, count=0;
-        while(count<=3){
-            if(checkThree(board[a],board[b],board[c])){
-                return true;}
-            a+=3;b+=3;c+=3;
-            count++;
-        }
-
-        /**
-         * check columns
-         * check indexes 0,3,6 in the 1st loop
-         * check indexes 1,4,7 in the 2nd loop
-         * check indexes 2,5,8 in the 3rd loop
-         */
-        int colum=0;
-        count=0;
-        while(count<=3){
-            if(checkThree(board[colum],board[colum+3],board[colum+6])){
+        int col =0; int row =0;
+        //Checks if there is a winner in Columns
+        while(col<=2){
+            if(checkThree(board[0][col],board[1][col],board[2][col])){
                 return true;
             }
-            colum++;
-            count++;
+            col++;
         }
-
+        //Checks if there is a winner in Rows
+        while (row<=2){
+            if(checkThree(board[row][0],board[row][1],board[row][2])){
+                return true;
+            }
+        }
         /**
          * checks both diagonals
          */
-        //checks left diagonal
-        if(checkThree(board[0],board[4],board[8])){
+        //checks the left diagonal(- slope)
+        if(checkThree(board[0][0],board[1][1],board[2][2])){
             return true;
         }
-        //checks right diagonal
-        if(checkThree(board[2],board[4],board[6])){
+        //checks right diagonal(+ slope)
+        if(checkThree(board[2][0],board[2][2],board[0][2])){
             return true;
         }
         return false;
@@ -77,27 +65,30 @@ public class PlayGame {
         return !a.equals(" ") && a.equals(b) && b.equals(c);
     }
 
-
-
-    public void addMove(int pos) {
+    public void addMove(int row,int col) {
 
         if (counter % 2 == 0) { //even for 0,2,4,6,8}
             //System.out.println("even " + counter);
-            board[pos] = "X";
+            board[row][col] = "X";
         } else {//Odd 1,3,5,7
             //System.out.println("odd " + counter);
-            board[pos] = "O";
+            board[row][col] = "O";
         }
     }
+    public Boolean validateInput(int pos){
+        return false;
+    }
 
-    public Boolean validateMove(int pos) {
-        return board[pos] == " ";
+    public Boolean validateMove(int r, int c) {
+        return board[r][c] == " ";
     }
 
     public void createBoard() {
-        for (String s : board)
-            s = " ";
+        for (String[] row : board) {
+            Arrays.fill(row," ");
+        }
     }
+
 
     public void addCounter() {
         counter++;
@@ -110,8 +101,8 @@ public class PlayGame {
 
     @Override
     public String toString() {
-        return board[0] + " | " + board[1] + " | " + board[2] + "\n" +
-                board[3] + " | " + board[4] + " | " + board[5] + "\n" +
-                board[6] + " | " + board[7] + " | " + board[8];
+        return board[0][0] + " | " + board[0][1] + " | " + board[0][2] + "\n" +
+                board[1][0] + " | " + board[1][1] + " | " + board[1][2] + "\n" +
+                board[2][0] + " | " + board[2][1] + " | " + board[2][2];
     }
 }
