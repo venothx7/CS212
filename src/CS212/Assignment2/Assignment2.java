@@ -27,9 +27,9 @@ public class Assignment2 {
         System.out.println("Use the numbers above to determine the position you want to input you value");
 
         int counter = 0;
-        int r=-1, c=-1, input;
+        int r = -1, c = -1, input;
         String input0;
-        while (game.getCounter() < 9) {
+        while (game.getCounter() < 9) {// run the game 9 times
 
             if (game.getCounter() % 2 == 0) { //even for 0,2,4,6,8
                 System.out.println("even " + game.getCounter());
@@ -42,33 +42,82 @@ public class Assignment2 {
                 //board[input - 1] = "O";
                 currentPlayer = PlayerO;
             }
-            input0 = reader.nextLine();
-            while (input0 != "") {
-                switch (input0) {
-                    case "1":
-                        r = 0;
-                        c = 0;
-                        break;
-                    case "2":
-                        r = 0;
-                        c = 1;
-                        break;
-                    default:
-                        System.out.println("Please Enter a valid input!");
-                        input0 = reader.nextLine();
-
-                }
-            }
-
-            while (!game.validateMove(r, c)) {
-                System.out.println("Invalid Move!, Position already taken");
-                System.out.println("Please try again, ");
+            /**
+             * this while loop will keep asking the user for an input if they dont
+             * enter it in the correct format, or if the position is already taken
+             */
+            boolean active = false;
+            while (!active) {
+                System.out.println("start while loop");
                 input0 = reader.nextLine();
+                if (input0.matches("^\\d$")) {
+                    //switch case converts the input to row, column
+                    switch (input0) {
+                        case "1":
+                            r = 0;
+                            c = 0;
+                            break;
+                        case "2":
+                            r = 0;
+                            c = 1;
+                            break;
+                        case "3":
+                            r = 0;
+                            c = 2;
+                            break;
+                        case "4":
+                            r = 1;
+                            c = 0;
+                            break;
+                        case "5":
+                            r = 1;
+                            c = 1;
+                            break;
+                        case "6":
+                            r = 1;
+                            c = 2;
+                            break;
+                        case "7":
+                            r = 2;
+                            c = 0;
+                            break;
+                        case "8":
+                            r = 2;
+                            c = 1;
+                            break;
+                        case "9":
+                            r = 2;
+                            c = 2;
+                            break;
+
+                        default:
+                            //the input cant be converted, not valid input
+                            System.out.println("Please Enter a valid input!");
+                            continue;
+                    }
+
+                    //checks if spot is taken, if not then add to the board
+                    if (game.validateMove(r,c)){
+                        game.addMove(r,c);
+                        active=true; // to break out of while loop
+                    }
+                    else{//if spot is taken,
+                        System.out.println("Invalid Move!, Position already taken! ");
+                        System.out.println("Please try again, ");
+                        continue;
+                    }
+                }
+
+                else{// prints this if the user enters not a digit
+                    System.out.println("Please enter the correct format, ");
+                }
+                System.out.println("end while loop");
             }
-            game.addMove(r, c);
             System.out.println(game); // print board
-            game.boardState(currentPlayer);
+           // game.boardState(currentPlayer);
+            System.out.println("end of currentPLayer");
         }
+        System.out.println("end main");
     }
 
 

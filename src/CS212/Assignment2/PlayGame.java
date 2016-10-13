@@ -16,6 +16,7 @@ public class PlayGame {
     }
     //check if board has winner, tie, Full
     public void boardState(int player){
+        System.out.println("print start method ");
         if(checkWinner()){
             System.out.println(player +" has WON the game!!");
             counter=9;
@@ -24,6 +25,7 @@ public class PlayGame {
             System.out.println("Game is a Tie");
 
         }
+        System.out.println("end of boardstate " + player);
     }
 
 
