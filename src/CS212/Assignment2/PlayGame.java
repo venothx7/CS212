@@ -7,13 +7,13 @@ public class PlayGame {
     private int counter = 0;
 
 
-    public int getCounter() {
-        return counter;
-    }
-
     // Creates board, a 3x3 2d array with single whitespaces
     public PlayGame() {
         createBoard();
+    }
+
+    public int getCounter() {
+        return counter;
     }
 
     //check if board has winner, tie, Full
@@ -23,6 +23,7 @@ public class PlayGame {
             System.out.println("Player " + player + " has WON the game!!");
             counter = 10;//to break out of the while loop in main class
         }
+        
         //checks to see if board is filled, if so then game is a tie
         if (counter == 9) {
             System.out.println("Game is a Tie, no one won");
@@ -52,11 +53,8 @@ public class PlayGame {
             return true;
         }
         //checks right diagonal(+ slope)
-        if (checkThree(board[2][0], board[2][2], board[0][2])) {
-            return true;
-        }
+        return checkThree(board[2][0], board[2][2], board[0][2]);
 
-        return false;
     }
 
     //given 3 string inputs a, b, c
