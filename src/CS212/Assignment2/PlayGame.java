@@ -6,97 +6,93 @@ public class PlayGame {
     private String[][] board = new String[3][3];
     private int counter = 0;
 
+
     public int getCounter() {
         return counter;
     }
 
-    // Create board
+    // Creates board, a 3x3 2d array with single whitespaces
     public PlayGame() {
         createBoard();
     }
-    //check if board has winner, tie, Full
-    public void boardState(int player){
-        System.out.println("print start method ");
-        if(checkWinner()){
-            System.out.println(player +" has WON the game!!");
-            counter=9;
-        }
-        if(counter==0){
-            System.out.println("Game is a Tie");
 
+    //check if board has winner, tie, Full
+    public void boardState(int player) {
+        //checks if a winner has been found
+        if (checkWinner()) {
+            System.out.println("Player " + player + " has WON the game!!");
+            counter = 10;//to break out of the while loop in main class
         }
-        System.out.println("end of boardstate " + player);
+        //checks to see if board is filled, if so then game is a tie
+        if (counter == 9) {
+            System.out.println("Game is a Tie, no one won");
+        }
+
     }
 
-
-    public Boolean checkWinner(){
-        int col =0; int row =0;
+    public Boolean checkWinner() {
+        int column = 0, row = 0;
         //Checks if there is a winner in Columns
-        while(col<=2){
-            if(checkThree(board[0][col],board[1][col],board[2][col])){
+        while (column <= 2) {
+            if (checkThree(board[0][column], board[1][column], board[2][column])) {
                 return true;
             }
-            col++;
+            column++;
         }
         //Checks if there is a winner in Rows
-        while (row<=2){
-            if(checkThree(board[row][0],board[row][1],board[row][2])){
+        while (row <= 2) {
+            if (checkThree(board[row][0], board[row][1], board[row][2])) {
                 return true;
             }
+            row++;
         }
-        /**
-         * checks both diagonals
-         */
-        //checks the left diagonal(- slope)
-        if(checkThree(board[0][0],board[1][1],board[2][2])){
+
+        //checks if there is a winner in the left diagonal(- slope)
+        if (checkThree(board[0][0], board[1][1], board[2][2])) {
             return true;
         }
         //checks right diagonal(+ slope)
-        if(checkThree(board[2][0],board[2][2],board[0][2])){
+        if (checkThree(board[2][0], board[2][2], board[0][2])) {
             return true;
         }
+
         return false;
     }
 
-    /**
-     * input 3 strings
-     * checks if 3 strings are equal
-     */
-    public Boolean checkThree(String a, String b, String c){
-        //returns true if winner found
+    //given 3 string inputs a, b, c
+    //returns true if they are all equal and not empty.
+    public Boolean checkThree(String a, String b, String c) {
         return !a.equals(" ") && a.equals(b) && b.equals(c);
     }
 
-    public void addMove(int row,int col) {
+    //given the row and column, and X or an O will be added to the board
+    public void addMove(int row, int col) {
 
-        if (counter % 2 == 0) { //even for 0,2,4,6,8}
-            //System.out.println("even " + counter);
+        if (counter % 2 == 0) { //even 0,2,4,6,8}
             board[row][col] = "X";
         } else {//Odd 1,3,5,7
-            //System.out.println("odd " + counter);
             board[row][col] = "O";
         }
     }
-    public Boolean validateInput(int pos){
-        return false;
-    }
 
+    // returns true if the position is empty
     public Boolean validateMove(int r, int c) {
         return board[r][c] == " ";
     }
 
+    //initializes the board array with single whitespace
     public void createBoard() {
         for (String[] row : board) {
-            Arrays.fill(row," ");
+            Arrays.fill(row, " ");
         }
     }
 
-
+    // adds 1 to the counter, to keep track of how many positions are filled
     public void addCounter() {
         counter++;
     }
 
-
+    //returns true if the counter is less than 9, the board is full when counter =8
     public Boolean checkCounter() {
         return counter < 9;
     }
