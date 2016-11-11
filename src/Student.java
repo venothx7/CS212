@@ -2,6 +2,7 @@
  * Created by Venoth Krishnan on 9/8/2016.
  */
 
+
 import java.util.ArrayList;
 
 public class Student implements Comparable<Student> {
@@ -13,7 +14,6 @@ public class Student implements Comparable<Student> {
     private ArrayList<Course> coursesList;
     private double totalCredits;
     private double gpa;
-
 
     /**
      * This constructor is used when Loading Data from text files
@@ -28,6 +28,7 @@ public class Student implements Comparable<Student> {
         this.id = id;
     }
 
+
     /**
      * This constructor is used when Adding Students
      * sets lastName and firstName at once
@@ -37,6 +38,11 @@ public class Student implements Comparable<Student> {
     public Student(String lastName, String firstName) {
         this.lastName = lastName;
         this.firstName = firstName;
+    }
+
+    public Boolean Contains(String lastName, String firstName) {
+
+        return false;
     }
 
     /**
@@ -133,7 +139,7 @@ public class Student implements Comparable<Student> {
      */
     @Override
     public int compareTo(Student s) {
-        return s.lastName.compareTo(this.lastName);
+        return s.lastName.compareTo(this.lastName) & s.firstName.compareTo(this.firstName);
     }
 
     /**

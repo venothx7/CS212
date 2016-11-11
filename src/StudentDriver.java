@@ -3,20 +3,15 @@
  * CS 313 Assignment 1
  */
 
-import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+
 import javax.swing.*;
-import java.io.FileInputStream;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.ArrayList;
 
 
 public class StudentDriver {
     private static final String FILE_NAME = "WarmUpData.txt "; //file name to read in
+
     private static ArrayList<Student> studentList = new ArrayList<>();
 
 
@@ -26,6 +21,14 @@ public class StudentDriver {
         Calculate();
         Display();
         StoreData();
+    }
+
+
+    // searches to see if a student exists, if not returns -1
+    public static Integer Contains(String lastName, String firstName) {
+
+
+        return -1;
     }
 
 
@@ -50,6 +53,7 @@ public class StudentDriver {
 
                 //pass in the lastName, firstName, id to current student
                 Student tempStudent = new Student(temp[0], temp[1], temp[2]);
+
 
                 input = file.readLine();//reads line after Names, which are courses
 
