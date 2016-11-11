@@ -4,16 +4,17 @@
  */
 
 
+
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
 
 public class StudentDriver {
-    private static final String FILE_NAME = "WarmUpData.txt "; //file name to read in
+    private static final String FILE_NAME = "Warming.txt"; //file name to read in
 
-    private static ArrayList<Student> studentList = new ArrayList<>();
-
+    //private static ArrayList<Student> studentList = new ArrayList<>();
+    private static SortedArrayList studentList = new SortedArrayList();
 
     public static void main(String[] args) {
         LoadData();
@@ -21,15 +22,11 @@ public class StudentDriver {
         Calculate();
         Display();
         StoreData();
+
     }
 
 
-    // searches to see if a student exists, if not returns -1
-    public static Integer Contains(String lastName, String firstName) {
 
-
-        return -1;
-    }
 
 
     /**
@@ -42,7 +39,7 @@ public class StudentDriver {
                     new InputStreamReader(new FileInputStream(FILE_NAME)));
 
             String input = file.readLine();//reads first line
-            while (input != null) {
+            while (input != null && !input.trim().equals("")) {
                 //create courseList for current student
                 ArrayList<Course> courseList = new ArrayList<>();
 
@@ -107,7 +104,7 @@ public class StudentDriver {
      */
     public static void Calculate() {
         //Calculate gpa and totalCredits for all students in studentList
-        for (Student student : studentList) {
+        for (Student student : studentList.getStudentList()) {
             student.Calculate();
         }
     }
@@ -116,7 +113,7 @@ public class StudentDriver {
      * prints studentList in the format given in the assignment
      */
     public static void Display() {
-        for (Student student : studentList) {
+        for (Student student : studentList.getStudentList()) {
             System.out.print(student.toString());
         }
 
@@ -179,7 +176,7 @@ public class StudentDriver {
             FileWriter fw = new FileWriter(file);
             bw = new BufferedWriter(fw);
 
-            for (Student s : studentList) {
+            for (Student s : studentList.getStudentList()) {
                 bw.write(s.toString());
             }
 

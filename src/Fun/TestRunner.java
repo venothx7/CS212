@@ -1,7 +1,6 @@
 package Fun;
 
 import java.util.Arrays;
-import java.util.Scanner;
 
 /**
  * Created by Venoth on 9/1/2016.
@@ -62,6 +61,7 @@ public class TestRunner {
     //System.out.println(isPalindrome(a));
 
 }
+
 
 /**
  * public static boolean isPalindrome(String input) {

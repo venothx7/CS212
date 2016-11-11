@@ -139,7 +139,10 @@ public class Student implements Comparable<Student> {
      */
     @Override
     public int compareTo(Student s) {
-        return s.lastName.compareTo(this.lastName) & s.firstName.compareTo(this.firstName);
+        if (s.lastName.compareTo(this.lastName) == 0) {
+            return s.firstName.compareTo(this.firstName);
+        }
+        return s.lastName.compareTo(this.lastName);
     }
 
     /**
