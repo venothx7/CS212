@@ -2,7 +2,6 @@
  * Created by Venoth Krishnan on 9/8/2016.
  */
 
-
 import java.util.ArrayList;
 
 public class Student implements Comparable<Student> {
@@ -18,6 +17,7 @@ public class Student implements Comparable<Student> {
     /**
      * This constructor is used when Loading Data from text files
      * Sets lastName, firstName, and id at once
+     *
      * @param lastName
      * @param firstName
      * @param id
@@ -32,6 +32,7 @@ public class Student implements Comparable<Student> {
     /**
      * This constructor is used when Adding Students
      * sets lastName and firstName at once
+     *
      * @param lastName
      * @param firstName
      */
@@ -47,6 +48,7 @@ public class Student implements Comparable<Student> {
 
     /**
      * Calculates the gpa and total credits for student
+     *
      * @return
      */
     public void Calculate() {
@@ -105,6 +107,7 @@ public class Student implements Comparable<Student> {
      * course2
      * etc
      * totalCredits, GPA
+     *
      * @return
      */
     @Override
@@ -124,6 +127,7 @@ public class Student implements Comparable<Student> {
 
     /**
      * equality test based on id#
+     *
      * @param o
      * @return
      */
@@ -134,19 +138,21 @@ public class Student implements Comparable<Student> {
 
     /**
      * Comparison based on lastName
+     *
      * @param s
      * @return
      */
     @Override
     public int compareTo(Student s) {
-        if (s.lastName.compareTo(this.lastName) == 0) {
-            return s.firstName.compareTo(this.firstName);
+        if (s.lastName.equalsIgnoreCase(this.lastName)) {
+            return s.firstName.compareToIgnoreCase(this.firstName);
         }
-        return s.lastName.compareTo(this.lastName);
+        return s.lastName.compareToIgnoreCase(this.lastName);
     }
 
     /**
      * All the setters and getters
+     *
      * @return
      */
     public String getFirstName() {
@@ -187,6 +193,14 @@ public class Student implements Comparable<Student> {
 
     public void setCoursesList(ArrayList<Course> coursesList) {
         this.coursesList = coursesList;
+    }
+
+    public void addCourses(Course course)
+    {
+        if (this.coursesList == null){
+            this.coursesList = new ArrayList<>();
+        }
+        this.coursesList.add(course);
     }
 
     public double getTotalCredits() {

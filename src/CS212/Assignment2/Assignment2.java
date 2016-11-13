@@ -43,7 +43,7 @@ public class Assignment2 {
              * enter it in the correct format, or if the position is already taken
              */
             boolean active = false;
-            while (!active) {
+            while (!active ) {
                 input0 = reader.nextLine();
                 if (input0.matches("^\\d$")) {
                     //switch case converts the input to row, column

@@ -4,29 +4,56 @@
  */
 
 
-
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
 
 public class StudentDriver {
-    private static final String FILE_NAME = "Warming.txt"; //file name to read in
+    private static final String FILE_NAME = "WarmUpData.txt"; //file name to read in
 
     //private static ArrayList<Student> studentList = new ArrayList<>();
+    //makes an instance of SortedArrayList
     private static SortedArrayList studentList = new SortedArrayList();
 
     public static void main(String[] args) {
-        LoadData();
-        AddStudent();
+        LoadData(); // load the data
+        //AddStudent(); //add students if u want
+        // a temp Student to search for and find info
         Calculate();
-        Display();
+        System.out.println(FindStudent());
+        //Display();
         StoreData();
 
     }
 
 
+    public static String FindStudent() {
+        String input = JOptionPane.showInputDialog(null,
+                "Enter Student's Name(First and Last Name must be Separated by ONE space)\n(Ex. Venoth Krishnan)):",
+                "Adding Student to List", JOptionPane.INFORMATION_MESSAGE);
 
+        if (input != null && input.matches("([a-zA-Z]+)\\s([a-zA-Z]+)")) {
+            String[] tempArray = input.split("\\s+");
+
+            //tempArray[1] holds Last Name as a String
+            //tempArray[0] holds First Name as a String
+
+            Student tempStudent =
+                    new Student(
+                            tempArray[1].replace('\n',' ').trim(),
+                            tempArray[0].replace('\n',' ').trim());
+
+            int pos = studentList.Find(tempStudent);
+            if (pos == -1){
+                return "Can't find this mothufuka" ;
+            }
+
+            return studentList.getStudentList().get(pos).toString();
+        }
+
+        return "Say Pokuu-guy";
+    }
 
 
     /**
@@ -134,7 +161,9 @@ public class StudentDriver {
             String input = JOptionPane.showInputDialog(null,
                     "Enter Student's Name(First and Last Name must be Separated by ONE space)\n(Ex. Venoth Krishnan)):",
                     "Adding Student to List", JOptionPane.INFORMATION_MESSAGE);
+
             if (input != null) {// If user presses Cancel, will break out of loop
+
                 if (!input.matches("([a-zA-Z]+)\\s([a-zA-Z]+)")) {//checks if user did not enter name in correct format
                     JOptionPane.showMessageDialog(null,
                             "Please Enter a Valid Name(ex. John Smith) \n Must contain only letters and a space!",

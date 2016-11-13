@@ -50,27 +50,32 @@ public class SortedArrayList {
     // looks for student and returns position, if not found return -1
     public Integer Find(Student s) {
         int pos = 0;
+        // traverse thru the list
         while (pos < studentList.size()) {
-            if (s.compareTo(studentList.get(pos)) == 0) {
+            if (s.compareTo(studentList.get(pos)) == 0) { // if the same last and first
                 return pos;
             }
             pos++;
         }
+        //if not found, return -1
         return -1;
     }
 
 
     public void add(Student s) {
-        if (studentList.size() == 0) {
+
+        if(studentList.size()==0){
             studentList.add(s);
-        } else {
-            for (int i = studentList.size() - 1; i >= 0; i--) {
-                if (s.compareTo(studentList.get(i)) < 0) {
-                    studentList.add(i, s);
+        }else{
+            for(int i=0;i<=studentList.size();i++){
+                if(s.compareTo(studentList.get(i))<=0){
+                    studentList.add(i,s);
                     break;
                 }
             }
         }
+
+
     }
 
     public ArrayList<Student> getStudentList() {
