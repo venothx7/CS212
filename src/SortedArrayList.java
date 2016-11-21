@@ -41,11 +41,7 @@ public class SortedArrayList {
         return sorted;
     }
 
-    public String DisplayStudent(Student s) {
-        int pos = Find(s);
 
-        return "x";
-    }
 
     // looks for student and returns position, if not found return -1
     public Integer Find(Student s) {

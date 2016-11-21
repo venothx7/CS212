@@ -3,11 +3,9 @@
  * CS 313 Assignment 1
  */
 
-
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
-
 
 public class StudentDriver {
     private static final String FILE_NAME = "WarmUpData.txt"; //file name to read in
@@ -17,42 +15,209 @@ public class StudentDriver {
     private static SortedArrayList studentList = new SortedArrayList();
 
     public static void main(String[] args) {
-        LoadData(); // load the data
-        //AddStudent(); //add students if u want
-        // a temp Student to search for and find info
-        Calculate();
-        System.out.println(FindStudent());
-        //Display();
-        StoreData();
 
+        JOptionPane.showMessageDialog(null,
+                "Eggs are not supposed to be green.",
+                "A plain message",
+                JOptionPane.PLAIN_MESSAGE);
+
+        LoadData();
+        Calculate();
+
+        Boolean run = true;
+        while (run) {
+            String[] choices = {"Display the current registration", //choice[0]
+                    "Add a Student to the registration",//choice[1]
+                    "Search for a student info",//choice[2]
+                    "Delete a registered student",//choice[3]
+                    "Add a course/grade for a student",//choice[4]
+                    "Delete a course for a student ",//choice[5]
+                    "Save student list to text file",//choice[6]
+                    "Save and Exit"};//choice[7]
+            String input = (String) JOptionPane.showInputDialog(null, "What would you like to do?",
+                    "Main Menu", JOptionPane.QUESTION_MESSAGE, null,
+                    choices, // Array of choices
+                    choices[2]); // Initial choice
+            if (input == null) break;
+            switch (input) {
+                case "Display the current registration":
+                    Display();
+                    break;
+                case "Add a Student to the registration":
+                    AddStudent();
+                    break;
+                case "Search for a student info":
+                    System.out.println(FindStudent());
+                    break;
+                case "Delete a registered student":
+                    System.out.println(DeleteStudent());
+                    break;
+                case "Add a course/grade for a student":
+                    System.out.println(StudentAddCourse());
+                    break;
+                case "Delete a course for a student ":
+                    break;
+                case "Save student list to text file":
+                    StoreData();
+                    break;
+                case "Save and Exit":
+                    StoreData();
+                    run = false;
+                    break;
+                default:
+                    run = false;
+            }
+        }
+
+
+        //LoadData(); // load the data
+        //Calculate();
+        //AddStudent(); //add students if u want
+        //System.out.println(FindStudent());
+        //System.out.println(StudentAddCourse());
+        //System.out.println(DeleteStudent());
+        //Display();
+        //StoreData();
+        System.out.println("end");
     }
 
+    public static String DeleteStudent() {
+        String input = JOptionPane.showInputDialog(null,
+                "Enter Student's Name(First and Last Name must be Separated by ONE space)\n(Ex. Venoth Krishnan)):",
+                "Removing Student from List", JOptionPane.INFORMATION_MESSAGE);
+
+        if (input != null && input.matches("([a-zA-Z]+)\\s([a-zA-Z]+)")) // gets the correct input
+        {
+            String[] tempArray = input.split("\\s+");
+            //tempArray[1] holds Last Name as a String
+            //tempArray[0] holds First Name as a String
+
+            Student tempStudent =
+                    new Student(
+                            tempArray[1].replace('\n', ' ').trim(),
+                            tempArray[0].replace('\n', ' ').trim());
+
+            int pos = studentList.Find(tempStudent);
+            if (pos == -1) {
+                JOptionPane.showMessageDialog(null,
+                        "Student Not Found! \n" +
+                                tempArray[1] + ", " + tempArray[0],
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
+                return "Student Not Found";
+            }
+            JOptionPane.showMessageDialog(null,
+                    studentList.getStudentList().get(pos).toString(),
+                    "Student Removed: " + studentList.getStudentList().get(pos).getFirstName() + " " +
+                            studentList.getStudentList().get(pos).getLastName()
+                            + " ",
+                    JOptionPane.ERROR_MESSAGE);
+            studentList.getStudentList().remove(pos);
+
+
+            return "Student Removed: " + studentList.getStudentList().get(pos).getFirstName() + " " +
+                    studentList.getStudentList().get(pos).getLastName()
+                    + " ";
+        }
+
+        JOptionPane.showMessageDialog(null,
+                "Not Correct Format, \n " +
+                        "Please enter Last Name and First Name, \n" +
+                        "Separated with One whitespace, and only Letters are allowed!",
+                "Error",
+                JOptionPane.WARNING_MESSAGE);
+
+        return "Not Correct Format, \n " +
+                "Please enter Last Name and First Name, \n" +
+                "Separated with One whitespace, and only Letters are allowed!";
+
+
+    }
 
     public static String FindStudent() {
         String input = JOptionPane.showInputDialog(null,
                 "Enter Student's Name(First and Last Name must be Separated by ONE space)\n(Ex. Venoth Krishnan)):",
                 "Adding Student to List", JOptionPane.INFORMATION_MESSAGE);
 
-        if (input != null && input.matches("([a-zA-Z]+)\\s([a-zA-Z]+)")) {
+        if (input != null && input.matches("([a-zA-Z]+)\\s([a-zA-Z]+)")) // gets the correct input
+        {
             String[] tempArray = input.split("\\s+");
-
             //tempArray[1] holds Last Name as a String
             //tempArray[0] holds First Name as a String
 
             Student tempStudent =
                     new Student(
-                            tempArray[1].replace('\n',' ').trim(),
-                            tempArray[0].replace('\n',' ').trim());
+                            tempArray[1].replace('\n', ' ').trim(),
+                            tempArray[0].replace('\n', ' ').trim());
 
             int pos = studentList.Find(tempStudent);
-            if (pos == -1){
-                return "Can't find this mothufuka" ;
+            if (pos == -1) {
+                return "Student Not Found";
             }
 
             return studentList.getStudentList().get(pos).toString();
         }
 
-        return "Say Pokuu-guy";
+        return "Not Correct Format, \n " +
+                "Please enter Last Name and First Name, \n" +
+                "Separated with One whitespace, and only Letters are allowed!";
+    }
+
+    //Find Student and Add Course
+    public static String StudentAddCourse() {
+        String input = JOptionPane.showInputDialog(null,
+                "Enter Student's Name(First and Last Name must be Separated by ONE space)\n(Ex. Venoth Krishnan)):",
+                "Find Student and Add Course", JOptionPane.INFORMATION_MESSAGE);
+
+        if (input != null && input.matches("([a-zA-Z]+)\\s([a-zA-Z]+)")) // gets the correct input
+        {
+            String[] tempArray = input.split("\\s+");
+            //tempArray[1] holds Last Name as a String
+            //tempArray[0] holds First Name as a String
+
+            Student tempStudent =
+                    new Student(
+                            tempArray[1].replace('\n', ' ').trim(),
+                            tempArray[0].replace('\n', ' ').trim());
+
+            int pos = studentList.Find(tempStudent);
+            if (pos == -1) { // Student not Found
+                return "Student Not Found";
+            } else { // Student Found
+                //get course info from user
+                input = JOptionPane.showInputDialog(null,
+                        "Enter The Course number, 2.5, and Grade  \n" +
+                                "Each separated with a single whitespace\n" +
+                                "(Ex. 4598 3 C+)",
+                        "Student Found: " + studentList.getStudentList().get(pos).getFirstName() + "" +
+                                studentList.getStudentList().get(pos).getLastName(),
+                        JOptionPane.INFORMATION_MESSAGE);
+                String[] temp = input.split(" ");
+                // temp[0] holds String courseNumber
+                // temp[1] holds String credits, will convert to Double from String by parse
+                // temp[2] holds String grade, will convert to Uppercase if needed
+
+                Course tempCourse = new Course(temp[0], Double.parseDouble(temp[1]), temp[2].toUpperCase());
+                studentList.getStudentList().get(pos).addCourses(tempCourse);
+                studentList.getStudentList().get(pos).Calculate(); // to calculate new gpa and total credits
+            }
+
+            return studentList.getStudentList().get(pos).toString();
+        }
+        // if the User did not enter correct format for Name
+        return "Not Correct Format, \n " +
+                "Please enter Last Name and First Name, \n" +
+                "Separated with One whitespace, and only Letters are allowed!";
+
+    }
+
+    // Find Student, and Delete a Course
+    public static String StudentDeleteCourse() {
+
+        return "Not Correct Format, \n " +
+                "Please enter Last Name and First Name, \n" +
+                "Separated with One whitespace, and only Letters are allowed!";
+
     }
 
 
@@ -86,7 +251,7 @@ public class StudentDriver {
 
                     temp = input.split(",");
                     // temp[0] holds String courseNumber
-                    // temp[1] holds String credits
+                    // temp[1] holds Double credits
                     // temp[2] holds String grade
 
                     // String credits will be converted to Double by using the parse
@@ -131,8 +296,8 @@ public class StudentDriver {
      */
     public static void Calculate() {
         //Calculate gpa and totalCredits for all students in studentList
-        for (Student student : studentList.getStudentList()) {
-            student.Calculate();
+        for (Student s : studentList.getStudentList()) {
+            s.Calculate();
         }
     }
 
