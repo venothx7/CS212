@@ -3,6 +3,10 @@
  * CS 313 Assignment 1
  */
 
+//delete a course for a student
+// makesure evrytin prints out to JoptionPane
+
+
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -16,10 +20,16 @@ public class StudentDriver {
 
     public static void main(String[] args) {
 
-        JOptionPane.showMessageDialog(null,
-                "Eggs are not supposed to be green.",
-                "A plain message",
-                JOptionPane.PLAIN_MESSAGE);
+        //JOptionPane.showMessageDialog(null, "Message", "title", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showOptionDialog(null,
+                "Do you like this answer?",
+                "Feedback",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                new String[]{"Yes I do", "No I don't"}, // this is the array
+                "default");
+
 
         LoadData();
         Calculate();
@@ -47,7 +57,7 @@ public class StudentDriver {
                     AddStudent();
                     break;
                 case "Search for a student info":
-                    System.out.println(FindStudent());
+                    FindStudent();
                     break;
                 case "Delete a registered student":
                     System.out.println(DeleteStudent());
@@ -134,7 +144,8 @@ public class StudentDriver {
 
     }
 
-    public static String FindStudent() {
+    //displays fine
+    public static void FindStudent() {
         String input = JOptionPane.showInputDialog(null,
                 "Enter Student's Name(First and Last Name must be Separated by ONE space)\n(Ex. Venoth Krishnan)):",
                 "Adding Student to List", JOptionPane.INFORMATION_MESSAGE);
@@ -152,15 +163,22 @@ public class StudentDriver {
 
             int pos = studentList.Find(tempStudent);
             if (pos == -1) {
-                return "Student Not Found";
+                JOptionPane.showMessageDialog(null, "Student Not Found", "Error",
+                        JOptionPane.PLAIN_MESSAGE);
+                return;
             }
+            JOptionPane.showMessageDialog(null,
+                    studentList.getStudentList().get(pos).toString(),
+                    "Student Found",
+                    JOptionPane.PLAIN_MESSAGE);
 
-            return studentList.getStudentList().get(pos).toString();
         }
-
-        return "Not Correct Format, \n " +
-                "Please enter Last Name and First Name, \n" +
-                "Separated with One whitespace, and only Letters are allowed!";
+        JOptionPane.showMessageDialog(null,
+                "Not Correct Format, \n " +
+                        "Please enter Last Name and First Name, \n" +
+                        "Separated with One whitespace, and only Letters are allowed!",
+                "Error: Not Correct Format",
+                JOptionPane.PLAIN_MESSAGE);
     }
 
     //Find Student and Add Course
@@ -301,13 +319,17 @@ public class StudentDriver {
         }
     }
 
+
     /**
      * prints studentList in the format given in the assignment
      */
+    //done
     public static void Display() {
+        StringBuilder roster = new StringBuilder();
         for (Student student : studentList.getStudentList()) {
-            System.out.print(student.toString());
+            roster.append(student.toString());
         }
+        JOptionPane.showMessageDialog(null, roster, "Student Roster", JOptionPane.PLAIN_MESSAGE);
 
     }
 
